@@ -34,7 +34,6 @@ TEST_F(SingletonTest, GetBySetInstance)
     CTest* p = new CTest;
     Singleton<CTest>::setInstance(p);
     EXPECT_EQ(Singleton<CTest>::getInstance(), p);
-    EXPECT_EQ(Singleton<CTest>::getInstance(), p);
 }
 
 
