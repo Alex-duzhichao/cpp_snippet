@@ -5,13 +5,13 @@
 
 namespace cpp
 {
-class CGI
-{
-public:
-    static std::string Encode(const std::string & sSrc);
-    static std::string Decode(const std::string & sSrc);
-    static std::string Convert(const std::string & sSrc, const char * from = "gbk", const char * to = "utf-8");
-};
+    class CGI
+    {
+    public:
+        static std::string Encode(const std::string &sSrc);
+        static std::string Decode(const std::string &sSrc);
+        static std::string Convert(const std::string &sSrc, const char *from = "gbk", const char *to = "utf-8");
+    };
 } // namespace cpp
 
 

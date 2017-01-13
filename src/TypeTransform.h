@@ -89,7 +89,7 @@ namespace cpp
 
             for ( unsigned int i = 0;
                     i < std::min<unsigned int>(static_cast<unsigned int>(sHex.size()),
-                        static_cast<unsigned int>(2));
+                                               static_cast<unsigned int>(2));
                     ++i ) {
                 // unsigned char c1 = static_cast<unsigned char>(std::toupper(sHex[i]));
                 // unsigned char c2 = (c1 >= 'A') ? (c1 - ('A' - 10)) : (c1 - '0');

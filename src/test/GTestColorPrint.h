@@ -22,10 +22,10 @@ namespace testing
         };
 
         extern void ColoredPrintf(
-                GTestColor color,
-                const char *fmt,
-                ...
-                );
+            GTestColor color,
+            const char *fmt,
+            ...
+        );
     }
 }
 

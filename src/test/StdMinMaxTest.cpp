@@ -51,8 +51,8 @@ class StdMinMaxTestClass : public boost::less_than_comparable<StdMinMaxTestClass
     public boost::equality_comparable<StdMinMaxTestClass>
 {
 public:
-    friend bool operator< (const StdMinMaxTestClass& lhs, const StdMinMaxTestClass& rhs);
-    friend bool operator== (const StdMinMaxTestClass& lhs, const StdMinMaxTestClass& rhs);
+    friend bool operator< (const StdMinMaxTestClass &lhs, const StdMinMaxTestClass &rhs);
+    friend bool operator== (const StdMinMaxTestClass &lhs, const StdMinMaxTestClass &rhs);
     // friend bool operator> (const StdMinMaxTestClass& lhs, const StdMinMaxTestClass& rhs);
     explicit StdMinMaxTestClass(const int num) : m_nMem(num)
     {}
@@ -61,19 +61,19 @@ private:
     int m_nMem;
 }; // class StdMinMaxTestClass
 
-bool operator< (const StdMinMaxTestClass& lhs, const StdMinMaxTestClass& rhs)
+bool operator< (const StdMinMaxTestClass &lhs, const StdMinMaxTestClass &rhs)
 {
     return (lhs.m_nMem < rhs.m_nMem);
 }
 
-bool operator== (const StdMinMaxTestClass& lhs, const StdMinMaxTestClass& rhs)
+bool operator== (const StdMinMaxTestClass &lhs, const StdMinMaxTestClass &rhs)
 {
     return !(lhs < rhs) && !(rhs < lhs);
 }
 
 // bool operator> (const StdMinMaxTestClass& lhs, const StdMinMaxTestClass& rhs)
 // {
-    // return (rhs < lhs) && !(rhs == lhs);
+// return (rhs < lhs) && !(rhs == lhs);
 // }
 
 TEST(StdMinMaxTest, MinOfDifferentUserDefineClass)

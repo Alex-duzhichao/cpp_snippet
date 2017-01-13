@@ -4,13 +4,13 @@ namespace cpp
 {
     class nocopyable
     {
-        protected:
-            nocopyable(){};
-            ~nocopyable(){};
+    protected:
+        nocopyable() {};
+        ~nocopyable() {};
 
-        private:
-            nocopyable(const nocopyable&);
-            nocopyable& operator= (const nocopyable&);
+    private:
+        nocopyable(const nocopyable &);
+        nocopyable &operator= (const nocopyable &);
     }; // class nocopyable
 
 } // namespace cpp

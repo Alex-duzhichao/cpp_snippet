@@ -57,6 +57,7 @@ namespace cpp
         assert((upperBound - lowerBound) <= numeric_limits<int>::max());
 
         vector<int> randomVec;
+
         for (unsigned int num = 0; num < size; ++num) {
             // TODO : 注意截断的不均匀(truncate)
             int randomNum = lowerBound + rand() % (upperBound - lowerBound);
