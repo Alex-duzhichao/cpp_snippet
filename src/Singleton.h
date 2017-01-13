@@ -8,47 +8,118 @@
 #ifndef CPP_SNIPPET_SRC_SINGLETON_H_
 #define CPP_SNIPPET_SRC_SINGLETON_H_
 
+#include <iostream>
+#include <cstddef>
 #include "nocopyable.h"
 
+using namespace std;
 namespace cpp
 {
     template<typename T>
-    class Singleton : private nocopyable
+    class NewPolicy : private nocopyable
     {
-        private:
-            static T* m_pInstance;
-        public:
-            static T* getInstance();
-            static void setInstance(const T* ptr);
-            static void destroyInstance();
+    public:
+        static T *getInstance();
+        static void setInstance(const T *pT);
+        static void destroyInstance();
 
-    }; // class Singleton
+    private:
+        static T *m_pInstance;
+    }; // class NewPolicy
 
     template<typename T>
-    T* Singleton<T>::m_pInstance = NULL;
+    T *NewPolicy<T>::m_pInstance = NULL;
 
     template<typename T>
-    T* Singleton<T>::getInstance()
+    T *NewPolicy<T>::getInstance()
     {
-        if(m_pInstance == NULL){
+        if(!m_pInstance) {
             m_pInstance = new T;
         }
+
         return m_pInstance;
     }
 
     template<typename T>
-    void Singleton<T>::setInstance(const T* ptr)
+    void NewPolicy<T>::setInstance(const T *pT)
     {
-        m_pInstance = const_cast<T*>(ptr);
+        assert(m_pInstance == nullptr);
+        m_pInstance = const_cast<T *>(pT);
     }
 
     template<typename T>
-    void Singleton<T>::destroyInstance()
+    void NewPolicy<T>::destroyInstance()
     {
-        if(m_pInstance != NULL){
+        if(m_pInstance) {
             delete m_pInstance;
-            m_pInstance = NULL;
+            m_pInstance = nullptr;
         }
+    }
+
+    template<typename T>
+    class NewAndDeletePolicy : public NewPolicy<T>
+    {
+    public:
+        static T *getInstance();
+    private:
+        class GarbageCollectHelper : private nocopyable
+        {
+        public:
+            ~GarbageCollectHelper()
+            {
+                NewPolicy<T>::destroyInstance();
+            }
+        }; // class GarbageCollectHelper : private nocopyable
+    }; // class NewAndDeletePolicy : public NewPolicy<T>
+
+    template<typename T>
+    T *NewAndDeletePolicy<T>::getInstance()
+    {
+        typename NewAndDeletePolicy<T>::GarbageCollectHelper staticGc;
+        return NewPolicy<T>::getInstance();
+    }
+
+    template<typename T>
+    class StaticPolicy : private nocopyable
+    {
+    public:
+        static T *getInstance();
+    }; // class StaticPolicy : private nocopyable
+
+    template<typename T>
+    T *StaticPolicy<T>::getInstance()
+    {
+        static T staticInstance;
+        return &staticInstance;
+    }
+
+    template<typename T,
+             template<typename> class Policy = NewPolicy>
+    class Singleton : private nocopyable
+    {
+    public:
+        static T *getInstance();
+        static void setInstance(const T *ptr);
+        static void destroyInstance();
+
+    }; // class Singleton
+
+    template<typename T, template<typename> class Policy>
+    T *Singleton<T, Policy>::getInstance()
+    {
+        return Policy<T>::getInstance();
+    }
+
+    template<typename T, template<typename> class Policy>
+    void Singleton<T, Policy>::setInstance(const T *ptr)
+    {
+        Policy<T>::setInstance(ptr);
+    }
+
+    template<typename T, template<typename> class Policy>
+    void Singleton<T, Policy>::destroyInstance()
+    {
+        Policy<T>::destroyInstance();
     }
 
 } // namespace cpp
