@@ -86,14 +86,18 @@ namespace cpp
         static char HexToChar(const std::string &sHex)
         {
             unsigned char c = 0;
+            typedef std::string::size_type size_type;
 
-            for ( unsigned int i = 0;
-                    i < std::min<unsigned int>(static_cast<unsigned int>(sHex.size()),
-                                               static_cast<unsigned int>(2));
-                    ++i ) {
-                // unsigned char c1 = static_cast<unsigned char>(std::toupper(sHex[i]));
-                // unsigned char c2 = (c1 >= 'A') ? (c1 - ('A' - 10)) : (c1 - '0');
+            for (size_type i = 0; i < std::min<size_type>(sHex.size(), 2); ++i) {
+                unsigned char c1 = static_cast<unsigned char>(std::toupper(sHex[i]));
+                unsigned char c2 = (c1 >= 'A')
+                                   ? static_cast<unsigned char>(c1 - ('A' - 10))
+                                   : static_cast<unsigned char>(c1 - '0');
                 // (c <<= 4) += c2;
+                //c/c++ do any numeric operation on char causes integer promotion
+                //https://mortoray.com/2011/10/27/implicit-type-promotion-and-conversion/
+                c = static_cast<unsigned char>(c << 4);
+                c = static_cast<unsigned char>(c + c2);
             }
 
             return c;

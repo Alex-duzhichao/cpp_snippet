@@ -10,19 +10,22 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(CXX_FLAGS
- -Wall
- -Wextra
- -Werror
- -Wconversion
+ # -Wall
+ # -Wextra
+ # -Werror
  -Wno-unused-parameter
- -Wold-style-cast
+ -Wno-unused-value
+ -Wno-sign-compare
  -Woverloaded-virtual
  -Wpointer-arith
  -Wshadow
  -Wwrite-strings
  -march=native
  -rdynamic
+ -std=c++11
  )
+ # -Wconversion
+ # -Wold-style-cast
 string(REPLACE ";" " " CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")

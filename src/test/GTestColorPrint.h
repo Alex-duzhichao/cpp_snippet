@@ -47,6 +47,7 @@ public:
 };
 
 //http://stackoverflow.com/questions/41425325/cout-a-stringstream-but-print-a-pointer?answertab=oldest#41425959
-#define GCOUT TestCout tc;tc
+//#define GCOUT TestCout tc__LINE__;tc__LINE__
+#define GCOUT TestCout()
 
 #endif /* CPP_SNIPPET_SRC_GTESTCOLORPRINT_H_ */

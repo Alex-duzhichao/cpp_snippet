@@ -1,7 +1,7 @@
 #ifndef CPP_SNIPPET_SRC_CGI_H_
 #define CPP_SNIPPET_SRC_CGI_H_
 
-// #include "type_transform.h"
+#include "TypeTransform.h"
 
 namespace cpp
 {
